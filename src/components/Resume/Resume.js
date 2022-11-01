@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom';
 
 export const Resume = () => {
 
@@ -11,19 +11,8 @@ export const Resume = () => {
     const [users, setUsers] = useState([])
 
 
-/*
-    const Result = () => {
-
-        let result = users;
-            result = filteredTypedocs(result);
-            result = filteredDocs(result);
-
-            console.log(filteredTypedocs)
-            // setSearchResults(result)
-      } */
-
     useEffect(() => {
-        fetch('data.json', {
+        fetch(`http://localhost:3000/users/?numero_documento=${ced}&tipo_documento=${td}`, {
             headers : { 
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -35,8 +24,8 @@ export const Resume = () => {
             return response.json();
             })
             .then(function(json) {
-            console.log(json.users);
-                setUsers(json.users)
+            console.log(json);
+                setUsers(json)
             });
 
         console.log(td)
@@ -70,6 +59,7 @@ export const Resume = () => {
                     type="text"
                     className="nombre"
                     value={user.apellido1}
+                    disabled
                 />
             </Form.Group>
             <Form.Group controlId="formFileDisabled" className="mb-3">
@@ -78,10 +68,19 @@ export const Resume = () => {
                     type="text"
                     className="nombre"
                     value={user.nombre}
+                    disabled
                 />
             </Form.Group>
+
             </>
             ))}
+            <Link style={{margin: '4px', color: 'white', textDecoration: 'none'}} to={{ pathname: `/`}}>
+              <Button variant="secondary" style={{borderRadius: '50px', width: '100%'}}>
+                
+                  Regresar
+                 
+              </Button>
+             </Link>
         </Form>
     </div>
   )

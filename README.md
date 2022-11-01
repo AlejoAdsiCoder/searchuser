@@ -1,3 +1,15 @@
+# Para utilizar la app
+1) npm i (instalar paquetes)
+2) Ejecutar el archivo json con json-server --watch public/data.json
+3) Ejecutar con npm start
+4) Datos para probar:
+
+"tipo_documento": 1,
+"numero_documento": 145231351
+
+"tipo_documento": 2,
+"numero_documento": 4477668
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

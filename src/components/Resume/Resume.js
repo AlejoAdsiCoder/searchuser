@@ -36,17 +36,6 @@ export const Resume = () => {
 
     }, [])
     
-
-    const filteredTypedocs = (myusers) => myusers.filter(function (e) {
-        console.log(e.tipo_documento);
-
-        return (
-            
-            e.tipo_documento === td)
-        }
-    );
-      const filteredDocs = (myusers) => myusers.filter(e => e.numero_documento === ced);
-
   return (
     <div>
         <Form>

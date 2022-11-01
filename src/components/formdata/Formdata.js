@@ -5,53 +5,7 @@ const Formdata = () => {
 
     const [typedoc, setTypedoc] = useState(1)
     const [document, setDocument] = useState('')
-    const [users, setUsers] = useState([])
-    const [searchResults, setSearchResults] = useState([]);
     const [btn, setBtn] = useState(true);
-
-    const getData = async ()=>{
-        await fetch('http://localhost:3000/users', {
-          headers : { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-           }
-        }
-        )
-          .then(function(response){
-            console.log(response)
-            return response.json();
-          })
-          .then(function(json) {
-            console.log(json);
-            setUsers(json)
-          });
-      }
-
-      const filteredTypedocs = (myusers) => myusers.filter(function (e) {
-        console.log(e.tipo_documento);
-
-        return (
-            
-            e.tipo_documento == typedoc)
-        }
-    );
-      const filteredDocs = (myusers) => myusers.filter(e => e.numero_documento === document);
-
-      const Result = async () => {
-
-        let result = users;
-            result = filteredTypedocs(result);
-            result = filteredDocs(result);
-
-            console.log(filteredTypedocs)
-            // await setSearchResults(result)
-            return result
-      }
-
-      useEffect(() => {
-        getData();
-        
-      }, [])
     
     const getTypedoc = e => {
         console.log(e.target.value)
@@ -62,7 +16,7 @@ const Formdata = () => {
     const getDocument = e => {
         console.log(e.target.value)
         setDocument(e.target.value);
-        if(document.trim().length !== 0) {
+        if(document !== null) {
           setBtn(false)
         }
     }

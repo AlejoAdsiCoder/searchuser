@@ -35,10 +35,11 @@ export const Resume = () => {
         // Result()
 
     }, [])
-    
+
   return (
     <div>
-        <Form>
+        <Form className="col-md-5 mx-auto">
+            <h3>Información básica</h3>
             {users.map(user =>(
                 <>
             <Form.Group>

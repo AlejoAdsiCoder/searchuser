@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
-
+import { Button, Form, Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 const Formdata = () => {
 
     const [typedoc, setTypedoc] = useState('')
@@ -9,8 +9,7 @@ const Formdata = () => {
     const [searchResults, setSearchResults] = useState([]);
 
     const getData = async ()=>{
-        await fetch('data.json'
-        ,{
+        await fetch('data.json', {
           headers : { 
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -23,29 +22,28 @@ const Formdata = () => {
           })
           .then(function(json) {
             console.log(json.users);
-            setUsers(json)
+            setUsers(json.users)
           });
       }
 
       const filteredTypedocs = (myusers) => myusers.filter(function (e) {
-        console.log(myusers);
+        console.log(e.tipo_documento);
 
         return (
             
-            e.tipo_documento === typedoc)
+            e.tipo_documento == typedoc)
         }
     );
       const filteredDocs = (myusers) => myusers.filter(e => e.numero_documento === document);
 
       const Result = () => {
 
-        let result = Object.keys(users.data);
+        let result = users;
             result = filteredTypedocs(result);
             result = filteredDocs(result);
 
+            console.log(filteredTypedocs)
             setSearchResults(result)
-            console.log(searchResults)
-            return result
       }
 
       useEffect(() => {
@@ -69,6 +67,7 @@ const Formdata = () => {
     const handleSearch = () => {
         try {
             Result()
+            console.log(searchResults)
         } catch (error) {
             console.log(error)
         }
@@ -93,10 +92,23 @@ const Formdata = () => {
                     onChange={getDocument}
                 />
             </Form.Group>
-            <Button variant="primary" onClick={handleSearch}>
-                Buscar
-            </Button>
+            <Link style={{margin: '4px'}} to={{ pathname: `/resume/${typedoc}/${document}`}}>
+              <Button variant="primary">
+                  Buscar
+              </Button>
+            </Link>
         </Form>
+        <Table striped responsive>
+        <tbody>
+          {searchResults.map(item => (
+            <tr>
+              <>
+              <td>{item.nombre}</td>
+              </>
+            </tr>
+          ))}
+        </tbody>
+        </Table>
     </div>
   )
 }
